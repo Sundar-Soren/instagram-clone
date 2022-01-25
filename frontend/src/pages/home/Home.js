@@ -1,4 +1,5 @@
 import React from "react";
+import HomeFeed from "../../components/feed/home-feed/HomeFeed";
 import Navbar from "../../components/navbar/Navbar";
 
 const Home = () => {
@@ -6,7 +7,7 @@ const Home = () => {
     <>
       <Navbar />
       <div className="home">
-        <h1>Hello from the Home</h1>
+        <HomeFeed />
       </div>
     </>
   );

@@ -5,12 +5,21 @@ import {
   HomeOutlined,
   Telegram,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./navbar-style.scss";
 
 const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => {
+      window.onscroll = null;
+    };
+  };
   return (
-    <div className="navbar">
+    <div className={isScrolled ? "navbar_scroll" : "navbar"}>
       <div className="container">
         <div className="logo">
           <img
@@ -23,7 +32,9 @@ const Navbar = () => {
         </div>
         <div className="icons">
           <div>
-            <HomeOutlined className="icon" />
+            <Link to="/" className="link">
+              <HomeOutlined className="icon" />
+            </Link>
           </div>
           <div>
             <Telegram className="icon" />
@@ -35,7 +46,9 @@ const Navbar = () => {
             <FavoriteBorderOutlined className="icon" />
           </div>
           <div className="profile">
-            <AccountCircle className="icon" />
+            <Link to="/profile" className="link">
+              <AccountCircle className="icon" />
+            </Link>
           </div>
         </div>
       </div>

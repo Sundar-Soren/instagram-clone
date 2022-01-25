@@ -1,0 +1,45 @@
+.homeFeed {
+  width: 60%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  @media (max-width: 900px) {
+    width: 70%;
+  }
+  @media (max-width: 700px) {
+    width: 85%;
+  }
+  @media (max-width: 600px) {
+    width: 97%;
+  }
+  .homeFeed_left {
+    width: 70%;
+    min-height: 100vh;
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
+  }
+  .homeFeed_right {
+    margin-top: 2rem;
+    width: 20%;
+    height: max-content;
+    position: fixed;
+    top: 4rem;
+    right: 14rem;
+    @media (max-width: 1250px) {
+      right: 12rem;
+    }
+    @media (max-width: 1000px) {
+      background-color: red;
+      //   right: 12rem;
+      display: none;
+    }
+    .homeFeed_right_container {
+      width: 85%;
+      margin: 0 auto;
+      .homeFeed_right_sug {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}

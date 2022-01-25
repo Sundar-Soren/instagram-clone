@@ -74,7 +74,7 @@
       margin: 0.5rem 0rem;
       display: flex;
       flex-direction: column;
-
+      width: 100%;
       input {
         height: 2.5rem;
         outline: none;
@@ -111,4 +111,10 @@
       border-bottom: #0095f6;
     }
   }
+}
+.signup-show {
+  display: none;
+}
+.signup-notshow {
+  display: block;
 }

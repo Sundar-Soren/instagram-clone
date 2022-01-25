@@ -1,0 +1,19 @@
+.profile_setting {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  background-color: rgb(126, 126, 126);
+  height: 30rem;
+  width: 20rem;
+  border-radius: 8px;
+  div {
+    height: 3rem;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+  }
+}
