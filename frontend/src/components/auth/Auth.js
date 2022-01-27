@@ -3,16 +3,29 @@ import "./authStyle.scss";
 import { Facebook } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../../context/actions/userActions";
+import { login, register } from "../../context/actions/userActions";
 
-const Auth = ({ isSignPage }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Auth = ({ isSignPage, onNext }) => {
   const dispatch = useDispatch();
+  const [signupUser, setSignupUser] = useState({
+    email: "",
+    fullname: "",
+    username: "",
+    password: "",
+  });
 
+  const handleSignupChange = (e) => {
+    setSignupUser({ ...signupUser, [e.target.name]: e.target.value });
+  };
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(signupUser.email, signupUser.password));
+  };
+
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    // onNext();
+    dispatch(register(signupUser));
   };
 
   return (
@@ -41,25 +54,38 @@ const Auth = ({ isSignPage }) => {
           <input
             type="email"
             name="email"
-            onChange={(e) => setEmail(e.target.value)}
+            required
+            onChange={handleSignupChange}
             placeholder="Email"
           />
           <input
             type="text"
+            name="fullname"
+            required
             placeholder="Full Name"
             className={isSignPage ? "" : "not-signup-page"}
+            onChange={handleSignupChange}
           />
           <input
             type="text"
+            name="username"
+            required
             placeholder="Username"
             className={isSignPage ? "" : "not-signup-page"}
+            onChange={handleSignupChange}
           />
           <input
             type="password"
+            name="password"
+            required
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleSignupChange}
           />
-          <button type="submit" className={isSignPage ? "" : "not-signup-page"}>
+          <button
+            type="submit"
+            onClick={handleSignupSubmit}
+            className={isSignPage ? "" : "not-signup-page"}
+          >
             Sign up
           </button>
           <button

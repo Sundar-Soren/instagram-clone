@@ -22,7 +22,7 @@ const Profile = () => {
     };
     getMyPosts();
   }, []);
-  console.log(posts);
+  console.log(user.avatar);
   return (
     <>
       <Navbar />
@@ -31,7 +31,11 @@ const Profile = () => {
           <div className="profile_pic">
             <div className="profile_pic_con">
               <img
-                src="https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                src={
+                  user.avatar
+                    ? user.avatar
+                    : "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                }
                 alt=""
               />
             </div>
@@ -49,15 +53,12 @@ const Profile = () => {
                 </div>
               </div>
               <div className="profile_dynamic_data">
-                <p>0 posts</p>
-                <p>1 follower</p>
-                <p>8 following</p>
+                <p>{user.posts} posts</p>
+                <p>{user.follower} follower</p>
+                <p>{user.following} following</p>
               </div>
               <div className="profile_fullname">{user.fullname}</div>
-              <div className="profile_bio">
-                🌐|| Hello World🌍 ⭕|| Trying to know how to communicate with
-                Machine
-              </div>
+              <div className="profile_bio">{user.bio}</div>
             </div>
           </div>
         </div>

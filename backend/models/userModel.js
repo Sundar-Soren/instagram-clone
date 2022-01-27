@@ -28,7 +28,24 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please Enter The Password"],
       minlength: [8, "Password Must be more than 8 charecter"],
     },
-
+    avatar: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    follower: {
+      type: Number,
+      default: 0,
+    },
+    following: {
+      type: Number,
+      default: 0,
+    },
+    posts: {
+      type: Number,
+      default: 0,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },

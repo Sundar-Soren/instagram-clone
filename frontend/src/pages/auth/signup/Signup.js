@@ -1,10 +1,10 @@
 import React from "react";
 import Auth from "../../../components/auth/Auth";
 
-const Signup = () => {
+const Signup = ({ onNext }) => {
   return (
     <div className="signup">
-      <Auth isSignPage={true} />
+      <Auth isSignPage={true} onNext={onNext} />
     </div>
   );
 };

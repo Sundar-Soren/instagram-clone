@@ -46,3 +46,27 @@
     }
   }
 }
+.add_post_comp {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+  overflow-y: hidden;
+  .close_post_model {
+    margin: 0.7rem;
+    color: white;
+    float: right;
+    cursor: pointer;
+  }
+  .post_com_call {
+    height: 80vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+}

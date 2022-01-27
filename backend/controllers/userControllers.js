@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 
 exports.userRegistration = async (req, res) => {
   try {
-    const { email, fullname, username, password } = req.body;
+    const { email } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -13,12 +13,7 @@ exports.userRegistration = async (req, res) => {
         error: "User Already Exist",
       });
     }
-    user = await User.create({
-      email,
-      fullname,
-      username,
-      password,
-    });
+    user = await User.create(req.body);
 
     const token = user.getJWTToken();
 
