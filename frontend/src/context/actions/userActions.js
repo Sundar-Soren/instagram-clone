@@ -11,6 +11,9 @@ import {
   REGISTER_USER_FAIL,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
 } from "../constants/userConstants";
 //user login
 export const login = (email, password) => async (dispatch) => {
@@ -55,7 +58,18 @@ export const logout = () => async (dispatch) => {
     await axios.get("/logout");
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
-    console.log(error);
     dispatch({ type: LOGOUT_FAIL, payload: "Failed to Logout" });
+  }
+};
+
+//UPDATE-USER
+export const updateUser = (updateData) => async (dispatch) => {
+  dispatch({ type: UPDATE_USER_REQUEST });
+  try {
+    const res = await axios.put("/user/update", updateData);
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data });
+    dispatch(loadUser());
+  } catch (error) {
+    dispatch({ type: UPDATE_USER_FAIL, payload: error.response.data.error });
   }
 };

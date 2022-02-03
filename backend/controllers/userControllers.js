@@ -113,3 +113,33 @@ exports.getUserDetails = async (req, res) => {
     });
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+    });
+    return res.status(200).json({
+      updateUser,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+
+//USER SUGGESTION
+
+exports.getUserSuggestion = async (req, res) => {
+  try {
+    const getRandomUser = await User.aggregate([{ $sample: { size: 5 } }]);
+    res.status(200).json({
+      getRandomUser,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      error: error.message,
+    });
+  }
+};

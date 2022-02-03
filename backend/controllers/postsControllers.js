@@ -10,8 +10,6 @@ exports.createPosts = async (req, res) => {
       { posts: postCount },
       { new: true }
     );
-    console.log(req.user.id);
-    console.log(user);
     res.status(200).json({
       success: true,
       post,

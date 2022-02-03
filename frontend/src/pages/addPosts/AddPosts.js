@@ -3,6 +3,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPosts } from "../../context/actions/postsAction";
+import { loadUser } from "../../context/actions/userActions";
 import storage from "../../firebase/firebaseStore";
 import "./addPosts.scss";
 

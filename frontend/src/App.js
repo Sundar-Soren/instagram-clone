@@ -7,7 +7,6 @@ import Profile from "./pages/proflie/Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./context/actions/userActions";
 import Register from "./pages/auth/Register";
-import AddPosts from "./pages/addPosts/AddPosts";
 
 const App = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -36,7 +35,7 @@ const App = () => {
         <Route
           exact
           path="/profile"
-          element={!isAuthenticated ? <Login /> : <Profile />}
+          element={isAuthenticated ? <Profile /> : <Login />}
         />
         {/* <Route
           exact

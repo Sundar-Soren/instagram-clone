@@ -10,6 +10,7 @@
       width: 30%;
       display: grid;
       place-items: center;
+      position: relative;
       .profile_pic_con {
         height: 12rem;
         width: 12rem;
@@ -19,6 +20,15 @@
           object-fit: cover;
           border-radius: 50%;
           cursor: pointer;
+        }
+        input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          opacity: 0;
         }
       }
     }

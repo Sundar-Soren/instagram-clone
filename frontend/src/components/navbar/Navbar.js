@@ -8,20 +8,13 @@ import {
   Telegram,
 } from "@material-ui/icons";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddPosts from "../../pages/addPosts/AddPosts";
 import "./navbar-style.scss";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [showPC, setShowPC] = useState(false);
-
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => {
-      window.onscroll = null;
-    };
-  };
   const showPostsComponent = () => {
     document.body.style.overflow = "hidden";
     setShowPC(true);
@@ -31,7 +24,6 @@ const Navbar = () => {
     document.body.style.overflow = "scroll";
     setShowPC(false);
   };
-
   return (
     <>
       {showPC && (
@@ -45,7 +37,7 @@ const Navbar = () => {
         </div>
       )}
 
-      <div className={isScrolled ? "navbar_scroll" : "navbar"}>
+      <div className={"navbar"}>
         <div className="container">
           <div className="logo">
             <img

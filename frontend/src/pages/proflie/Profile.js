@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./profile.scss";
 import Navbar from "../../components/navbar/Navbar";
 import { BookmarkBorderOutlined, GridOn, Settings } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import PorfileSetting from "../../components/profile-component/profile-setting/PorfileSetting";
+import { firebaseUpload } from "../../firebase/fileUpload";
+import { updateUser } from "../../context/actions/userActions";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import storage from "../../firebase/firebaseStore";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
   const [posts, setPosts] = useState([]);
   const [showsetting, setShowsetting] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const getMyPosts = async () => {
       try {
@@ -22,7 +26,37 @@ const Profile = () => {
     };
     getMyPosts();
   }, []);
-  console.log(user.avatar);
+
+  const handleAvatarUpdate = (e) => {
+    const fileName = new Date().getTime() + e.target.files[0].name;
+    const storageRef = ref(storage, `Avatar/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        console.log("Firebase Upload error" + error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          dispatch(updateUser({ avatar: downloadURL }));
+        });
+      }
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -36,7 +70,13 @@ const Profile = () => {
                     ? user.avatar
                     : "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                 }
-                alt=""
+                alt="avatar"
+              />
+              <input
+                type="file"
+                name="avatar"
+                id=""
+                onChange={handleAvatarUpdate}
               />
             </div>
           </div>
