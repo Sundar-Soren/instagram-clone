@@ -1,5 +1,11 @@
 import axios from "axios";
 import {
+  FOLLOWING_USER_FAIL,
+  FOLLOWING_USER_REQUEST,
+  FOLLOWING_USER_SUCCESS,
+  GET_USER_PROFILE_FAIL,
+  GET_USER_PROFILE_REQUEST,
+  GET_USER_PROFILE_SUCCESS,
   LOAD_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
@@ -11,10 +17,17 @@ import {
   REGISTER_USER_FAIL,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
+  SUGGESTION_USER_FAIL,
+  SUGGESTION_USER_REQUEST,
+  SUGGESTION_USER_SUCCESS,
+  UNFOLLOW_USER_FAIL,
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
 } from "../constants/userConstants";
+import { getOtherPosts } from "./postsAction";
 //user login
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -71,5 +84,73 @@ export const updateUser = (updateData) => async (dispatch) => {
     dispatch(loadUser());
   } catch (error) {
     dispatch({ type: UPDATE_USER_FAIL, payload: error.response.data.error });
+  }
+};
+
+//USER SUGGESTION
+export const getUserSuggestion = () => async (dispatch) => {
+  dispatch({ type: SUGGESTION_USER_REQUEST });
+  try {
+    const res = await axios.get("/user_suggestion");
+    dispatch({
+      type: SUGGESTION_USER_SUCCESS,
+      payload: res.data.getRandomUser,
+    });
+  } catch (error) {
+    dispatch({
+      type: SUGGESTION_USER_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
+//FOLLOWING USERS
+
+export const followingUserCall = (followingID) => async (dispatch) => {
+  dispatch({ type: FOLLOWING_USER_REQUEST });
+  try {
+    const res = await axios.put("/user/following", {
+      following: followingID,
+    });
+    dispatch({
+      type: FOLLOWING_USER_SUCCESS,
+      payload: res.data.followingId,
+    });
+  } catch (error) {
+    dispatch({
+      type: FOLLOWING_USER_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
+export const unfollowingUserCall = (unfollowingID) => async (dispatch) => {
+  dispatch({ type: UNFOLLOW_USER_REQUEST });
+  try {
+    const res = await axios.put("/user/unfollowing", {
+      unfollowing: unfollowingID,
+    });
+    dispatch({ type: UNFOLLOW_USER_SUCCESS, payload: res.data.unfollowingId });
+  } catch (error) {
+    dispatch({
+      type: UNFOLLOW_USER_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
+//GET USER PROFILE
+
+export const getUserProfile = (username) => async (dispatch) => {
+  dispatch({ type: GET_USER_PROFILE_REQUEST });
+  try {
+    const res = await axios.get(`/user/profile/${username}`);
+    dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: res.data.profile });
+    dispatch(getOtherPosts(res.data.profile._id));
+  } catch (error) {
+    dispatch({
+      type: GET_USER_PROFILE_FAIL,
+      payload: error.response.data.error,
+    });
   }
 };

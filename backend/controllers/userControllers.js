@@ -133,9 +133,84 @@ exports.updateUser = async (req, res) => {
 
 exports.getUserSuggestion = async (req, res) => {
   try {
-    const getRandomUser = await User.aggregate([{ $sample: { size: 5 } }]);
+    const getRandomUser = await User.aggregate([
+      { $match: { username: { $not: { $eq: req.user.username } } } },
+      { $sample: { size: 5 } },
+    ]);
     res.status(200).json({
       getRandomUser,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+//FOLLOWING USER
+
+exports.followingUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $addToSet: { following: req.body.following },
+      },
+      { new: true }
+    );
+    await User.findByIdAndUpdate(
+      req.body.following,
+      {
+        $addToSet: { follower: req.user.id },
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      followingId: req.body.following,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+//UNFOLLOWING USER
+
+exports.unFollowingUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $pull: {
+          following: req.body.unfollowing,
+        },
+      },
+      { new: true }
+    );
+    await User.findByIdAndUpdate(
+      req.body.unfollowing,
+      {
+        $pull: {
+          follower: req.user.id,
+        },
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      unfollowingId: req.body.unfollowing,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+
+//PROFILE DETAILS BY USERNAME
+exports.getProfileDetails = async (req, res) => {
+  try {
+    const profile = await User.findOne({ username: req.params.username });
+    return res.status(200).json({
+      profile,
     });
   } catch (error) {
     return res.status(401).json({

@@ -1,15 +1,34 @@
 import React from "react";
 import "./profileComp.scss";
-const ProfileComp = ({ follow }) => {
+import { useDispatch } from "react-redux";
+import {
+  followingUserCall,
+  unfollowingUserCall,
+} from "../../context/actions/userActions";
+const ProfileComp = ({ follow, users, followingUser }) => {
+  const dispatch = useDispatch();
+
+  const handleFollow = (followingId) => {
+    dispatch(followingUserCall(followingId));
+  };
+  const handleUnfollowing = (unfollowingId) => {
+    dispatch(unfollowingUserCall(unfollowingId));
+  };
   return (
-    <div className="profileComp">
-      <img
-        src="https://images.unsplash.com/photo-1630125193995-cd224e2fba7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGN1dGUlMjBnaXJsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-        alt=""
-      />
-      <p>name profile</p>
-      {follow && <span>Follow</span>}
-    </div>
+    <>
+      {users && (
+        <div className="profileComp">
+          <img src={users.avatar} alt="" />
+          <p>{users.username}</p>
+          {follow && !followingUser.includes(users._id) && (
+            <span onClick={() => handleFollow(users._id)}>Follow</span>
+          )}
+          {followingUser.includes(users._id) && (
+            <div onClick={() => handleUnfollowing(users._id)}>following</div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

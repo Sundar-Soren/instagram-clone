@@ -15,6 +15,7 @@ import "./navbar-style.scss";
 
 const Navbar = () => {
   const [showPC, setShowPC] = useState(false);
+  const { user } = useSelector((state) => state.user);
   const showPostsComponent = () => {
     document.body.style.overflow = "hidden";
     setShowPC(true);
@@ -24,6 +25,7 @@ const Navbar = () => {
     document.body.style.overflow = "scroll";
     setShowPC(false);
   };
+
   return (
     <>
       {showPC && (
@@ -69,9 +71,15 @@ const Navbar = () => {
               <FavoriteBorderOutlined className="icon" />
             </div>
             <div className="profile">
-              <Link to="/profile" className="link">
-                <AccountCircle className="icon" />
-              </Link>
+              {user ? (
+                <Link to={`/${user.username}`} className="link">
+                  <AccountCircle className="icon" />
+                </Link>
+              ) : (
+                <Link to="/login" className="link">
+                  <button className="login_nav">Login</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

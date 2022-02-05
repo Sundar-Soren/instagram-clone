@@ -6,6 +6,9 @@ const {
   getUserDetails,
   getUserSuggestion,
   updateUser,
+  followingUser,
+  unFollowingUser,
+  getProfileDetails,
 } = require("../controllers/userControllers");
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -19,6 +22,14 @@ router.get("/logout", userLogout);
 router.get("/me", isAuthenticated, getUserDetails);
 router.put("/user/update", isAuthenticated, updateUser);
 
-router.get("/user_suggestion", getUserSuggestion);
+router.get("/user_suggestion", isAuthenticated, getUserSuggestion);
+
+//FOLLOW
+
+router.put("/user/following", isAuthenticated, followingUser);
+router.put("/user/unfollowing", isAuthenticated, unFollowingUser);
+
+//PROFILE
+router.get("/user/profile/:username", getProfileDetails);
 
 module.exports = router;

@@ -9,7 +9,7 @@ import { loadUser } from "./context/actions/userActions";
 import Register from "./pages/auth/Register";
 
 const App = () => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
+        />
         <Route
           exact
           path="/signup"
@@ -34,8 +37,9 @@ const App = () => {
         />
         <Route
           exact
-          path="/profile"
-          element={isAuthenticated ? <Profile /> : <Login />}
+          path="/:username"
+          element={<Profile />}
+          // element={<Profile />}
         />
         {/* <Route
           exact

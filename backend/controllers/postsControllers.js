@@ -30,7 +30,19 @@ exports.getMyPosts = async (req, res) => {
       posts,
     });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      message: "failed to fetch posts",
+    });
+  }
+};
+
+exports.getOthersPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.params.id });
+    return res.status(200).json({
+      posts,
+    });
+  } catch (error) {
     res.status(400).json({
       message: "failed to fetch posts",
     });

@@ -2,12 +2,17 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { postsReducer } from "./context/reducers/postsReducer";
-import { profileReducer, userReducer } from "./context/reducers/userReducers";
+import {
+  profileReducer,
+  userReducer,
+  userSuggestionReducer,
+} from "./context/reducers/userReducers";
 
 const reducer = combineReducers({
   user: userReducer,
   posts: postsReducer,
   profile: profileReducer,
+  userSuggestion: userSuggestionReducer,
 });
 const middleware = [thunk];
 const initialState = {};

@@ -35,12 +35,10 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     follower: {
-      type: Number,
-      default: 0,
+      type: Array,
     },
     following: {
-      type: Number,
-      default: 0,
+      type: Array,
     },
     posts: {
       type: Number,
