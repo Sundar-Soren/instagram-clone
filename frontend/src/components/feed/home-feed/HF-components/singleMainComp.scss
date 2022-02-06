@@ -10,6 +10,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .singleMainComp_profile_n_logo {
+      display: flex;
+      align-items: center;
+      img {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+      p {
+        font-size: 1.3rem;
+        margin-left: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
     .singleMainComp_t_dot {
       display: grid;
       place-items: center;
@@ -50,7 +67,7 @@
     }
     .singleMainComp_description_time {
       margin-top: 4px;
-      font-size: 0.7rem;
+      font-size: 0.9rem;
     }
   }
 }

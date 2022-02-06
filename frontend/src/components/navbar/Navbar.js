@@ -8,14 +8,16 @@ import {
   Telegram,
 } from "@material-ui/icons";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { CLEAR_POST_SUCCESS_AND_ERROR } from "../../context/constants/postConstant";
 import AddPosts from "../../pages/addPosts/AddPosts";
 import "./navbar-style.scss";
 
 const Navbar = () => {
   const [showPC, setShowPC] = useState(false);
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const showPostsComponent = () => {
     document.body.style.overflow = "hidden";
     setShowPC(true);
@@ -24,6 +26,7 @@ const Navbar = () => {
   const notShowPostsComponent = () => {
     document.body.style.overflow = "scroll";
     setShowPC(false);
+    dispatch({ type: CLEAR_POST_SUCCESS_AND_ERROR });
   };
 
   return (

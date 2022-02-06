@@ -6,24 +6,23 @@ import {
   Telegram,
 } from "@material-ui/icons";
 import React from "react";
-import ProfileComp from "../../../FUC/ProfileComp";
 import "./singleMainComp.scss";
-const SingleMainComp = () => {
+import { format } from "timeago.js";
+const SingleMainComp = ({ feedPost }) => {
+  console.log(feedPost.post_user[0].username);
   return (
     <div className="singleMainComp">
       <div className="singleMainComp_top">
         <div className="singleMainComp_profile_n_logo">
-          <ProfileComp />
+          <img src={feedPost.post_user[0].avatar} alt="" />
+          <p>{feedPost.post_user[0].username}</p>
         </div>
         <div className="singleMainComp_t_dot">
           <MoreHoriz />
         </div>
       </div>
       <div className="singleMainComp_media_file">
-        <img
-          src="https://images.pexels.com/photos/2437197/pexels-photo-2437197.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          alt=""
-        />
+        <img src={feedPost.media} alt="" />
       </div>
       <div className="singleMainComp_activity">
         <div className="singleMainComp_activity_icons">
@@ -38,10 +37,12 @@ const SingleMainComp = () => {
         </div>
         <div className="singleMainComp_l_count">5,732 likes</div>
         <div className="singleMainComp_description">
-          <span className="user_namesmc">phrasalidiomatic</span>
-          <span>Share with your friends and family👥</span>
+          <span className="user_namesmc">{feedPost.post_user[0].username}</span>
+          <span>{feedPost.caption}</span>
         </div>
-        <div className="singleMainComp_description_time">1 DAY AGO</div>
+        <div className="singleMainComp_description_time">
+          {format(feedPost.createdAt)}
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import { InsertPhotoOutlined } from "@material-ui/icons";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPosts } from "../../context/actions/postsAction";
-import { loadUser } from "../../context/actions/userActions";
 import storage from "../../firebase/firebaseStore";
 import "./addPosts.scss";
-
+import Loading from "../../components/loading/Loading";
+import Success from "../../components/success/Success";
 const AddPosts = () => {
+  const { loading, isCreated } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [media, setMedia] = useState("");
   const [caption, setCaption] = useState("");
@@ -49,43 +50,53 @@ const AddPosts = () => {
   const handleCreatePost = () => {
     dispatch(createPosts({ media, caption }));
   };
-
+  // console.log(loading);
   return (
     <div className="add_posts">
-      <div className="add_posts_container">
-        <div className="add_posts_container_top">
-          <h3>Create new post</h3>
-          <button onClick={handleCreatePost}>Share</button>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          {isCreated ? (
+            <Success />
+          ) : (
+            <div className="add_posts_container">
+              <div className="add_posts_container_top">
+                <h3>Create new post</h3>
+                <button onClick={handleCreatePost}>Share</button>
+              </div>
+              {media && (
+                <div className="add_posts_container_img">
+                  <img src={media} alt="" />
+                </div>
+              )}
+              {!media && (
+                <div className="add_posts_container_icons">
+                  <InsertPhotoOutlined className="add_posts_container_icon" />
+                </div>
+              )}
+              <div className="post_media_input">
+                <label htmlFor="postMedia">Select from computer</label>
+                <input
+                  type="file"
+                  name="media"
+                  onChange={handleMediaInput}
+                  id="postMedia"
+                />
+              </div>
+              <div className="post_caption">
+                <textarea
+                  name=""
+                  id=""
+                  required
+                  onChange={(e) => setCaption(e.target.value)}
+                  placeholder="Write a caption..."
+                />
+              </div>
+            </div>
+          )}
         </div>
-        {media && (
-          <div className="add_posts_container_img">
-            <img src={media} alt="" />
-          </div>
-        )}
-        {!media && (
-          <div className="add_posts_container_icons">
-            <InsertPhotoOutlined className="add_posts_container_icon" />
-          </div>
-        )}
-        <div className="post_media_input">
-          <label htmlFor="postMedia">Select from computer</label>
-          <input
-            type="file"
-            name="media"
-            onChange={handleMediaInput}
-            id="postMedia"
-          />
-        </div>
-        <div className="post_caption">
-          <textarea
-            name=""
-            id=""
-            required
-            onChange={(e) => setCaption(e.target.value)}
-            placeholder="Write a caption..."
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

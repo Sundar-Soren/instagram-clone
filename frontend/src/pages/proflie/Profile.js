@@ -3,21 +3,18 @@ import "./profile.scss";
 import Navbar from "../../components/navbar/Navbar";
 import { BookmarkBorderOutlined, GridOn, Settings } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import PorfileSetting from "../../components/profile-component/profile-setting/PorfileSetting";
-import { firebaseUpload } from "../../firebase/fileUpload";
 import { getUserProfile, updateUser } from "../../context/actions/userActions";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import storage from "../../firebase/firebaseStore";
 import { useParams } from "react-router-dom";
-import { getOtherPosts } from "../../context/actions/postsAction";
 
 const Profile = () => {
   const { username } = useParams();
 
   const { user } = useSelector((state) => state.user);
   const { profile } = useSelector((state) => state.profile);
-  const [posts, setPosts] = useState([]);
+  const { posts } = useSelector((state) => state.posts);
   const [showsetting, setShowsetting] = useState(false);
   const dispatch = useDispatch();
 
@@ -25,20 +22,6 @@ const Profile = () => {
     dispatch(getUserProfile(username));
   }, [username, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getOtherPosts(profile._id));
-  // }, [profile]);
-  useEffect(() => {
-    const getMyPosts = async () => {
-      try {
-        const res = await axios.get("/post/getmy");
-        setPosts(res.data.posts);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getMyPosts();
-  }, []);
   const handleAvatarUpdate = (e) => {
     const fileName = new Date().getTime() + e.target.files[0].name;
     const storageRef = ref(storage, `Avatar/${fileName}`);
@@ -134,8 +117,8 @@ const Profile = () => {
           </div>
           <div className="profile_media_container">
             {posts &&
-              posts.map((post) => (
-                <div className="profile_media">
+              posts.map((post, i) => (
+                <div className="profile_media" key={i}>
                   <img src={post.media} alt="" />
                 </div>
               ))}

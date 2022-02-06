@@ -1,7 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { postsReducer } from "./context/reducers/postsReducer";
+import {
+  feedPostsReducer,
+  postsReducer,
+} from "./context/reducers/postsReducer";
 import {
   profileReducer,
   userReducer,
@@ -13,6 +16,7 @@ const reducer = combineReducers({
   posts: postsReducer,
   profile: profileReducer,
   userSuggestion: userSuggestionReducer,
+  feedPosts: feedPostsReducer,
 });
 const middleware = [thunk];
 const initialState = {};

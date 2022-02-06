@@ -80,8 +80,7 @@ export const updateUser = (updateData) => async (dispatch) => {
   dispatch({ type: UPDATE_USER_REQUEST });
   try {
     const res = await axios.put("/user/update", updateData);
-    dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data });
-    dispatch(loadUser());
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: res.data.updateUser });
   } catch (error) {
     dispatch({ type: UPDATE_USER_FAIL, payload: error.response.data.error });
   }
