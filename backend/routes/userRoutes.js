@@ -9,6 +9,7 @@ const {
   followingUser,
   unFollowingUser,
   getProfileDetails,
+  getUserById,
 } = require("../controllers/userControllers");
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -20,6 +21,7 @@ router.get("/logout", userLogout);
 
 //User Details
 router.get("/me", isAuthenticated, getUserDetails);
+router.get("/user/:userId", isAuthenticated, getUserById);
 router.put("/user/update", isAuthenticated, updateUser);
 
 router.get("/user_suggestion", isAuthenticated, getUserSuggestion);

@@ -8,6 +8,8 @@ import { getUserProfile, updateUser } from "../../context/actions/userActions";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import storage from "../../firebase/firebaseStore";
 import { useParams } from "react-router-dom";
+import FollowingList from "../../components/profile-component/followingList/FollowingList";
+import FollowersList from "../../components/profile-component/followingList copy/FollowersList";
 
 const Profile = () => {
   const { username } = useParams();
@@ -16,7 +18,18 @@ const Profile = () => {
   const { profile } = useSelector((state) => state.profile);
   const { posts } = useSelector((state) => state.posts);
   const [showsetting, setShowsetting] = useState(false);
+  const [followingListModel, setFollowingListModel] = useState(false);
+  const [followerListModel, setFollowerListModel] = useState(false);
   const dispatch = useDispatch();
+
+  const followingListModelFunctionCall = () => {
+    setFollowingListModel(true);
+    document.body.style.overflow = "hidden";
+  };
+  const followerListModelFunctionCall = () => {
+    setFollowerListModel(true);
+    document.body.style.overflow = "hidden";
+  };
 
   useEffect(() => {
     dispatch(getUserProfile(username));
@@ -97,8 +110,12 @@ const Profile = () => {
                 </div>
                 <div className="profile_dynamic_data">
                   <p>{profile.posts} posts</p>
-                  <p>{profile.follower.length} follower</p>
-                  <p>{profile.following.length} following</p>
+                  <p onClick={followerListModelFunctionCall}>
+                    {profile.follower.length} follower
+                  </p>
+                  <p onClick={followingListModelFunctionCall}>
+                    {profile.following.length} following
+                  </p>
                 </div>
                 <div className="profile_fullname">{profile.fullname}</div>
                 <div className="profile_bio">{profile.bio}</div>
@@ -126,6 +143,12 @@ const Profile = () => {
         </div>
       )}
       {showsetting && <PorfileSetting setShowsetting={setShowsetting} />}
+      {followingListModel && (
+        <FollowingList setFollowingListModel={setFollowingListModel} />
+      )}
+      {followerListModel && (
+        <FollowersList setFollowerListModel={setFollowerListModel} />
+      )}
     </>
   );
 };

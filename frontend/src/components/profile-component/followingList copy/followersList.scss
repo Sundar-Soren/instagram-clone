@@ -1,0 +1,28 @@
+.following_list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  display: grid;
+  place-items: center;
+  .followingList_container {
+    height: 25rem;
+    width: 23rem;
+    background-color: white;
+    border-radius: 1rem;
+    h4 {
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      border-bottom: 1px solid black;
+    }
+    .following_list_call {
+      overflow-y: scroll;
+      height: 22rem;
+    }
+  }
+}
