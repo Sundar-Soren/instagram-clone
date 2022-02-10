@@ -1,0 +1,98 @@
+.LoginPopup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  display: grid;
+  place-items: center;
+  .container {
+    margin-top: 3rem;
+    background-color: white;
+    width: 23rem;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 1.5rem 2rem;
+    .auth-logo-image {
+      display: flex;
+      justify-content: center;
+      img {
+        float: left;
+        height: 50px;
+        object-fit: contain;
+      }
+    }
+
+    button {
+      margin: 0.5rem 0rem;
+      background-color: #0095f6;
+      color: white;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      .icon {
+        margin-right: 4px;
+      }
+    }
+
+    .or-separation {
+      margin: 0.6rem 0rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .or {
+        font-size: 13px;
+        color: #888888;
+      }
+      .line {
+        height: 1px;
+        width: 7rem;
+        background-color: #aaaaaa;
+      }
+    }
+
+    form {
+      margin: 0.5rem 0rem;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      input {
+        height: 2.5rem;
+        outline: none;
+        margin: 4px 0;
+        border: 1px solid #c0c0c0;
+        padding: 1px 2px;
+      }
+      button {
+        margin: 1rem 0;
+        font-size: 1.1rem;
+        font-weight: 400;
+        cursor: pointer;
+      }
+    }
+  }
+  .log-in {
+    p {
+      span {
+        cursor: pointer;
+        &:hover {
+          border-bottom: 1px solid #0095f6;
+        }
+      }
+    }
+  }
+  .sign-up {
+    background-color: #0095f6;
+  }
+}

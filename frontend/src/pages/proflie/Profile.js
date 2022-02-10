@@ -10,6 +10,7 @@ import storage from "../../firebase/firebaseStore";
 import { useParams } from "react-router-dom";
 import FollowingList from "../../components/profile-component/followingList/FollowingList";
 import FollowersList from "../../components/profile-component/followingList copy/FollowersList";
+import LoginPopup from "../../components/FUC/LoginPopup";
 
 const Profile = () => {
   const { username } = useParams();
@@ -20,6 +21,7 @@ const Profile = () => {
   const [showsetting, setShowsetting] = useState(false);
   const [followingListModel, setFollowingListModel] = useState(false);
   const [followerListModel, setFollowerListModel] = useState(false);
+  const [loginpopup, setLoginpopup] = useState(false);
   const dispatch = useDispatch();
 
   const followingListModelFunctionCall = () => {
@@ -28,6 +30,10 @@ const Profile = () => {
   };
   const followerListModelFunctionCall = () => {
     setFollowerListModel(true);
+    document.body.style.overflow = "hidden";
+  };
+  const loginPopupCall = () => {
+    setLoginpopup(true);
     document.body.style.overflow = "hidden";
   };
 
@@ -81,12 +87,14 @@ const Profile = () => {
                   }
                   alt="avatar"
                 />
-                <input
-                  type="file"
-                  name="avatar"
-                  id=""
-                  onChange={handleAvatarUpdate}
-                />
+                {user && user._id === profile._id && (
+                  <input
+                    type="file"
+                    name="avatar"
+                    id=""
+                    onChange={handleAvatarUpdate}
+                  />
+                )}
               </div>
             </div>
             <div className="profile_info_content">
@@ -110,12 +118,24 @@ const Profile = () => {
                 </div>
                 <div className="profile_dynamic_data">
                   <p>{profile.posts} posts</p>
-                  <p onClick={followerListModelFunctionCall}>
-                    {profile.follower.length} follower
-                  </p>
-                  <p onClick={followingListModelFunctionCall}>
-                    {profile.following.length} following
-                  </p>
+                  {user ? (
+                    <p onClick={followerListModelFunctionCall}>
+                      {profile.follower.length} follower
+                    </p>
+                  ) : (
+                    <p onClick={loginPopupCall}>
+                      {profile.follower.length} follower
+                    </p>
+                  )}
+                  {user ? (
+                    <p onClick={followingListModelFunctionCall}>
+                      {profile.following.length} following
+                    </p>
+                  ) : (
+                    <p onClick={loginPopupCall}>
+                      {profile.following.length} following
+                    </p>
+                  )}
                 </div>
                 <div className="profile_fullname">{profile.fullname}</div>
                 <div className="profile_bio">{profile.bio}</div>
@@ -149,6 +169,7 @@ const Profile = () => {
       {followerListModel && (
         <FollowersList setFollowerListModel={setFollowerListModel} />
       )}
+      {loginpopup && !user && <LoginPopup setLoginpopup={setLoginpopup} />}
     </>
   );
 };

@@ -18,7 +18,7 @@ const FollowingList = ({ setFollowingListModel }) => {
         <div className="following_list_call">
           {profile &&
             profile.following.map((userId, i) => (
-              <ProfileFetchById userId={userId} key={i} />
+              <ProfileFetchById userId={userId} profile={profile} key={i} />
             ))}
         </div>
       </div>

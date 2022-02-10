@@ -54,34 +54,43 @@ const Navbar = () => {
             <input type="text" placeholder="Search" />
           </div>
           <div className="icons">
-            <div>
-              <Link to="/" className="link">
-                <HomeOutlined className="icon" />
-              </Link>
-            </div>
-            <div>
-              <Telegram className="icon" />
-            </div>
-            <div>
-              <span onClick={showPostsComponent}>
-                <AddBoxOutlined className="icon" />
-              </span>
-            </div>
-            <div>
-              <Explore className="icon" />
-            </div>
-            <div>
-              <FavoriteBorderOutlined className="icon" />
-            </div>
+            {user && (
+              <>
+                <div>
+                  <Link to="/" className="link">
+                    <HomeOutlined className="icon" />
+                  </Link>
+                </div>
+                <div>
+                  <Telegram className="icon" />
+                </div>
+                <div>
+                  <span onClick={showPostsComponent}>
+                    <AddBoxOutlined className="icon" />
+                  </span>
+                </div>
+                <div>
+                  <Explore className="icon" />
+                </div>
+                <div>
+                  <FavoriteBorderOutlined className="icon" />
+                </div>
+              </>
+            )}
             <div className="profile">
               {user ? (
                 <Link to={`/${user.username}`} className="link">
                   <AccountCircle className="icon" />
                 </Link>
               ) : (
-                <Link to="/login" className="link">
-                  <button className="login_nav">Login</button>
-                </Link>
+                <div className="weiofhjdc">
+                  <Link to="/signup" className="link">
+                    <div>Sign Up</div>
+                  </Link>
+                  <Link to="/login" className="link">
+                    <button className="login_nav">Login</button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
