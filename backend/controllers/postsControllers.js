@@ -83,3 +83,25 @@ exports.getFeedPosts = async (req, res) => {
     });
   }
 };
+
+exports.likeAnyPost = async (req, res) => {
+  try {
+    const likedPost = await Post.findByIdAndUpdate(
+      req.body.postId,
+      {
+        $addToSet: { likes: req.user.id },
+      },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      likedPost,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

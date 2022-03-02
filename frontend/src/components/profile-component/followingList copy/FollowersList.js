@@ -14,9 +14,9 @@ const FollowersList = ({ setFollowerListModel }) => {
   return (
     <div className="following_list" onClick={handleCloseModel}>
       <div className="followingList_container">
-        <h4>Following</h4>
+        <h4>Follower</h4>
         <div className="following_list_call">
-          {profile.follower.length &&
+          {profile &&
             profile.follower.map((userId, i) => (
               <ProfileFetchById userId={userId} key={i} />
             ))}

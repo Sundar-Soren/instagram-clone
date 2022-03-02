@@ -6,6 +6,7 @@ import {
   followingUserCall,
   unfollowingUserCall,
 } from "../../context/actions/userActions";
+import { Link } from "react-router-dom";
 const ProfileFetchById = ({ userId, profile }) => {
   const dispatch = useDispatch();
   const [singleuser, setSingleUser] = useState(null);
@@ -28,17 +29,20 @@ const ProfileFetchById = ({ userId, profile }) => {
   const handleUnfollowing = (unfollowingId) => {
     dispatch(unfollowingUserCall(unfollowingId));
   };
-
   return (
     <>
       {singleuser && (
         <div className="profilefetchById">
           <div className="profilefetchById_container">
-            <img src={singleuser.avatar} alt="" />
-            <div className="profilefetchById_name">
-              <p>{singleuser.username}</p>
-              <p>{singleuser.fullname}</p>
-            </div>
+            <Link to={`/${singleuser.username}`} className="link">
+              <img src={singleuser.avatar} alt="" />
+            </Link>
+            <Link to={`/${singleuser.username}`} className="link">
+              <div className="profilefetchById_name">
+                <p>{singleuser.username}</p>
+                <p>{singleuser.fullname}</p>
+              </div>
+            </Link>
             {user && user.following.includes(singleuser._id) && (
               <button onClick={() => handleUnfollowing(singleuser._id)}>
                 unfollow

@@ -136,6 +136,39 @@ export const profileReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+
+    case FOLLOWING_USER_REQUEST:
+    case UNFOLLOW_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FOLLOWING_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        profile: {
+          ...state.profile,
+          following: [...state.profile.following, action.payload],
+        },
+      };
+    case UNFOLLOW_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        profile: {
+          ...state.profile,
+          following: state.profile.following.filter(
+            (following) => following !== action.payload
+          ),
+        },
+      };
+    case FOLLOWING_USER_FAIL:
+    case UNFOLLOW_USER_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

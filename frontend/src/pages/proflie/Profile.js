@@ -4,7 +4,12 @@ import Navbar from "../../components/navbar/Navbar";
 import { BookmarkBorderOutlined, GridOn, Settings } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import PorfileSetting from "../../components/profile-component/profile-setting/PorfileSetting";
-import { getUserProfile, updateUser } from "../../context/actions/userActions";
+import {
+  followingUserCall,
+  getUserProfile,
+  unfollowingUserCall,
+  updateUser,
+} from "../../context/actions/userActions";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import storage from "../../firebase/firebaseStore";
 import { useParams } from "react-router-dom";
@@ -39,6 +44,9 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserProfile(username));
+    setFollowingListModel(false);
+    setFollowerListModel(false);
+    document.body.style.overflow = "auto";
   }, [username, dispatch]);
 
   const handleAvatarUpdate = (e) => {
@@ -69,6 +77,13 @@ const Profile = () => {
         });
       }
     );
+  };
+
+  const handleFollow = (followingId) => {
+    dispatch(followingUserCall(followingId));
+  };
+  const handleUnfollowing = (unfollowingId) => {
+    dispatch(unfollowingUserCall(unfollowingId));
   };
 
   return (
@@ -104,9 +119,26 @@ const Profile = () => {
                   {user && user._id === profile._id && (
                     <button>Edit Profile</button>
                   )}
-                  {user && user._id !== profile._id && (
-                    <button className="follow">Follow</button>
-                  )}
+                  {user &&
+                    user._id !== profile._id &&
+                    !user.following.includes(profile._id) && (
+                      <button
+                        className="follow"
+                        onClick={() => handleFollow(profile._id)}
+                      >
+                        Follow
+                      </button>
+                    )}
+                  {user &&
+                    user._id !== profile._id &&
+                    user.following.includes(profile._id) && (
+                      <button
+                        className="unfollow"
+                        onClick={() => handleUnfollowing(profile._id)}
+                      >
+                        Unfollow
+                      </button>
+                    )}
                   {user && user._id === profile._id && (
                     <div
                       onClick={() => setShowsetting(true)}

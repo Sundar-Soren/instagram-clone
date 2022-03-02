@@ -8,15 +8,18 @@ import {
 import React from "react";
 import "./singleMainComp.scss";
 import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 const SingleMainComp = ({ feedPost }) => {
-  console.log(feedPost.post_user[0].username);
+  console.log(feedPost);
   return (
     <div className="singleMainComp">
       <div className="singleMainComp_top">
-        <div className="singleMainComp_profile_n_logo">
-          <img src={feedPost.post_user[0].avatar} alt="" />
-          <p>{feedPost.post_user[0].username}</p>
-        </div>
+        <Link to={`/${feedPost.post_user[0].username}`} className="link">
+          <div className="singleMainComp_profile_n_logo">
+            <img src={feedPost.post_user[0].avatar} alt="" />
+            <p>{feedPost.post_user[0].username}</p>
+          </div>
+        </Link>
         <div className="singleMainComp_t_dot">
           <MoreHoriz />
         </div>
@@ -35,7 +38,9 @@ const SingleMainComp = ({ feedPost }) => {
             <BookmarkBorderOutlined className="singleMainComp_activity_iconr" />
           </div>
         </div>
-        <div className="singleMainComp_l_count">5,732 likes</div>
+        {/* <div className="singleMainComp_l_count">
+          {feedPost.likes ? feedPost.likes.length() : ""}
+        </div> */}
         <div className="singleMainComp_description">
           <span className="user_namesmc">{feedPost.post_user[0].username}</span>
           <span>{feedPost.caption}</span>
