@@ -1,5 +1,6 @@
 import {
   BookmarkBorderOutlined,
+  EmojiEmotions,
   FavoriteBorderOutlined,
   ModeCommentOutlined,
   MoreHoriz,
@@ -10,7 +11,6 @@ import "./singleMainComp.scss";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 const SingleMainComp = ({ feedPost }) => {
-  console.log(feedPost);
   return (
     <div className="singleMainComp">
       <div className="singleMainComp_top">
@@ -38,15 +38,34 @@ const SingleMainComp = ({ feedPost }) => {
             <BookmarkBorderOutlined className="singleMainComp_activity_iconr" />
           </div>
         </div>
-        {/* <div className="singleMainComp_l_count">
-          {feedPost.likes ? feedPost.likes.length() : ""}
-        </div> */}
+        <div className="singleMainComp_l_count">
+          {feedPost && <>{feedPost.likes.length} Likes</>}
+        </div>
         <div className="singleMainComp_description">
           <span className="user_namesmc">{feedPost.post_user[0].username}</span>
           <span>{feedPost.caption}</span>
         </div>
+        <div className="view_comment_count">
+          View all {feedPost.comments.length} comments
+        </div>
         <div className="singleMainComp_description_time">
           {format(feedPost.createdAt)}
+        </div>
+        {feedPost.comments.map((comment) => (
+          <div className="display_comment">
+            <div className="comment_user_name">sundar soren</div>
+            <p>{comment.comment}</p>
+          </div>
+        ))}
+
+        <div className="add_comment">
+          <div className="add_icon">
+            <EmojiEmotions />
+          </div>
+          <form>
+            <input type="text" placeholder="Add a comment..." />
+            <button type="submit">Post</button>
+          </form>
         </div>
       </div>
     </div>

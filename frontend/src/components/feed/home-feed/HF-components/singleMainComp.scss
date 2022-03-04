@@ -1,12 +1,11 @@
 .singleMainComp {
   margin: 2rem 0;
   width: 100%;
-  height: 90vh;
+  // height: 90vh;
   border: 1px solid #474747;
   .singleMainComp_top {
-    height: 10%;
     width: 95%;
-    margin: 0 auto;
+    margin: 0.4rem auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +33,7 @@
     }
   }
   .singleMainComp_media_file {
-    height: 70%;
+    height: 70vh;
     padding: 1px 0;
     img {
       height: 100%;
@@ -43,11 +42,9 @@
     }
   }
   .singleMainComp_activity {
-    height: 20%;
-    width: 95%;
+    // width: 95%;
     margin: 0 auto;
     .singleMainComp_activity_icons {
-      height: 20%;
       display: flex;
       justify-content: space-between;
       padding-top: 3px;
@@ -59,15 +56,65 @@
         margin: 0;
       }
     }
+    .singleMainComp_l_count {
+      padding: 0 0.4rem;
+    }
     .singleMainComp_description {
+      padding: 0 0.4rem;
       .user_namesmc {
         font-weight: 600;
         margin-right: 0.5rem;
       }
     }
+    .view_comment_count {
+      // background-color: #0095f6;
+      padding: 2px 0.3rem;
+      color: darkgray;
+    }
     .singleMainComp_description_time {
-      margin-top: 4px;
+      margin: 4px;
       font-size: 0.9rem;
+    }
+    .display_comment {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+      padding: 0 0.3rem;
+      .comment_user_name {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+    }
+    .add_comment {
+      padding: 0.5rem 0;
+      border-top: 1px solid #00000018;
+      display: flex;
+      align-items: center;
+      margin-top: 0.3rem;
+      .add_icon {
+        margin: 0 4px;
+      }
+      form {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        input {
+          width: 100%;
+          height: 2rem;
+          border: none;
+          outline: none;
+          font-size: 1.05rem;
+        }
+        button {
+          cursor: pointer;
+          font-size: 1.1rem;
+          padding: 0 10px;
+          color: #0095f6;
+          background-color: transparent;
+          border: none;
+          outline: none;
+        }
+      }
     }
   }
 }

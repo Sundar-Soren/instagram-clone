@@ -105,3 +105,24 @@ exports.likeAnyPost = async (req, res) => {
     });
   }
 };
+
+exports.createComment = async (req, res) => {
+  try {
+    const comment = await Post.findByIdAndUpdate(
+      req.body.postId,
+      {
+        $push: { comments: req.body },
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      success: true,
+      comment,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};

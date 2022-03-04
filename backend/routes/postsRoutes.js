@@ -5,6 +5,7 @@ const {
   getOthersPosts,
   getFeedPosts,
   likeAnyPost,
+  createComment,
 } = require("../controllers/postsControllers");
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -15,5 +16,9 @@ router.get("/post/others/:id", getOthersPosts);
 
 router.post("/feedPosts", isAuthenticated, getFeedPosts);
 router.put("/post/like", isAuthenticated, likeAnyPost);
+
+//comments
+
+router.put("/comment/create", isAuthenticated, createComment);
 
 module.exports = router;
