@@ -15,11 +15,12 @@ const HomeFeed = () => {
     dispatch(getUserSuggestion());
     dispatch(getFeedPostsApiCall());
   }, [dispatch]);
-  console.log(feedPosts);
+  // console.log(feedPosts.feedPosts.map);
+
   return (
     <div className="homeFeed">
       <div className="homeFeed_left">
-        {feedPosts &&
+        {feedPosts.length > 0 &&
           feedPosts.map((feedPost, i) => (
             <SingleMainComp key={i} feedPost={feedPost} />
           ))}

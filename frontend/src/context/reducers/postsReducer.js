@@ -1,4 +1,7 @@
 import {
+  ADD_COMMENT_FAIL,
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
   CLEAR_POST_SUCCESS_AND_ERROR,
   CREATE_POST_FAIL,
   CREATE_POST_REQUEST,
@@ -55,7 +58,7 @@ export const postsReducer = (state = {}, action) => {
   }
 };
 
-export const feedPostsReducer = (state = {}, action) => {
+export const feedPostsReducer = (state = { feedPosts: {} }, action) => {
   switch (action.type) {
     case GET_FEED_POSTS_REQUEST:
       return {
@@ -71,6 +74,26 @@ export const feedPostsReducer = (state = {}, action) => {
         isFetch: true,
         feedPosts: action.payload,
       };
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        // feedPosts: {
+        //   ...state.feedPosts,
+        //   comments: [...state.user.comments, action.payload],
+        // },
+      };
+    case ADD_COMMENT_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
     case GET_FEED_POSTS_SUCCESS:
       return {
         ...state,

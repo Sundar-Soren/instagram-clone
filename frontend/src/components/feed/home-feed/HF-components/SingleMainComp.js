@@ -6,11 +6,30 @@ import {
   MoreHoriz,
   Telegram,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import "./singleMainComp.scss";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { postCommentCall } from "../../../../context/actions/postsAction";
 const SingleMainComp = ({ feedPost }) => {
+  const { user } = useSelector((state) => state.user);
+  const [comment, setComment] = useState("");
+
+  const dispatch = useDispatch();
+
+  const postComment = (e) => {
+    e.preventDefault();
+    dispatch(
+      postCommentCall({
+        postId: feedPost._id,
+        comment,
+        user: user._id,
+        userName: user.username,
+      })
+    );
+  };
+
   return (
     <div className="singleMainComp">
       <div className="singleMainComp_top">
@@ -53,7 +72,7 @@ const SingleMainComp = ({ feedPost }) => {
         </div>
         {feedPost.comments.map((comment) => (
           <div className="display_comment">
-            <div className="comment_user_name">sundar soren</div>
+            <div className="comment_user_name">{comment.userName}</div>
             <p>{comment.comment}</p>
           </div>
         ))}
@@ -62,9 +81,15 @@ const SingleMainComp = ({ feedPost }) => {
           <div className="add_icon">
             <EmojiEmotions />
           </div>
-          <form>
-            <input type="text" placeholder="Add a comment..." />
-            <button type="submit">Post</button>
+          <form onSubmit={postComment}>
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button type="submit" onClick={postComment}>
+              Post
+            </button>
           </form>
         </div>
       </div>

@@ -113,7 +113,7 @@ export const userReducer = (state = { user: {} }, action) => {
   }
 };
 
-export const profileReducer = (state = {}, action) => {
+export const profileReducer = (state = { profile: {} }, action) => {
   switch (action.type) {
     case UPDATE_USER_REQUEST:
     case GET_USER_PROFILE_REQUEST:

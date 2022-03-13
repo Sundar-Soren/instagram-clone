@@ -108,6 +108,11 @@ exports.likeAnyPost = async (req, res) => {
 
 exports.createComment = async (req, res) => {
   try {
+    if (!req.body.postId) {
+      return res.status(500).json({
+        error: "Post not found",
+      });
+    }
     const comment = await Post.findByIdAndUpdate(
       req.body.postId,
       {
@@ -117,7 +122,7 @@ exports.createComment = async (req, res) => {
     );
     res.status(200).json({
       success: true,
-      comment,
+      comment: comment.comments,
     });
   } catch (error) {
     console.log(error);
