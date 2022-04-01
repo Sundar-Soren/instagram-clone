@@ -52,6 +52,19 @@ exports.getOthersPosts = async (req, res) => {
   }
 };
 
+exports.getPostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    return res.json({
+      post,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "failed to fetch the post",
+    });
+  }
+};
+
 exports.getFeedPosts = async (req, res) => {
   const ids = req.user.following.map(function (el) {
     return mongoose.Types.ObjectId(el);
@@ -122,12 +135,26 @@ exports.createComment = async (req, res) => {
     );
     res.status(200).json({
       success: true,
-      comment: comment.comments,
+      comment: comment.comments[comment.comments.length - 1],
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       error: error.message,
+    });
+  }
+};
+
+exports.getPostComments = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+
+    res.status(200).json({
+      comment: post.comments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to fetch the post's comments",
     });
   }
 };

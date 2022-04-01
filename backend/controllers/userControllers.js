@@ -231,3 +231,16 @@ exports.getProfileDetails = async (req, res) => {
     });
   }
 };
+
+exports.getProfilePic = async (req, res) => {
+  try {
+    const profile = await User.findById(req.params.userId);
+    res.status(200).json({
+      profilePic: profile.avatar,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "failed to fetch the proile pic",
+    });
+  }
+};

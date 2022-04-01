@@ -10,6 +10,7 @@ const {
   unFollowingUser,
   getProfileDetails,
   getUserById,
+  getProfilePic,
 } = require("../controllers/userControllers");
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 const router = express.Router();
@@ -33,5 +34,6 @@ router.put("/user/unfollowing", isAuthenticated, unFollowingUser);
 
 //PROFILE
 router.get("/user/profile/:username", getProfileDetails);
+router.get("/user/profilePic/:userId", getProfilePic);
 
 module.exports = router;

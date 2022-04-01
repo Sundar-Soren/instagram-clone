@@ -1,0 +1,131 @@
+.postsPopupDetail {
+  background-color: #00000096;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99999999999;
+  .postsPopupDetail_container {
+    height: 90vh;
+    width: 80%;
+    border-radius: 0.2rem;
+    background-color: white;
+    display: flex;
+    .PPD_left {
+      width: 50%;
+      border-right: 1px solid #a19797d2;
+      height: 100%;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+    .PPD_right {
+      width: 50%;
+      .PPD_right_container {
+        width: 90%;
+        margin: 0 auto;
+        .singleMainComp_top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #857d7d8c;
+          padding: 0.5rem 0;
+          .singleMainComp_profile_n_logo {
+            display: flex;
+            align-items: center;
+            img {
+              height: 3rem;
+              width: 3rem;
+              border-radius: 50%;
+              object-fit: cover;
+              cursor: pointer;
+            }
+            p {
+              font-size: 1.2rem;
+              margin-left: 0.5rem;
+              font-weight: 600;
+              cursor: pointer;
+            }
+          }
+          .singleMainComp_t_dot {
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+          }
+        }
+        .singleMainComp_description {
+          padding: 1rem 0;
+
+          .user_namesmc {
+            font-weight: 600;
+          }
+        }
+        .commentLists {
+          overflow-y: scroll;
+          height: 55vh;
+          border-top: 1px solid #80808088;
+          border-bottom: 1px solid #80808088;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+        .singleMainComp_activity_icons {
+          display: flex;
+          .singleMainComp_activity_iconr {
+            font-size: 1.7rem;
+            margin-right: 6px;
+            margin-top: 6px;
+          }
+          .singleMainComp_activity_save_icon {
+            margin-left: auto;
+          }
+        }
+        .likeCount {
+          p {
+            font-weight: 700;
+          }
+        }
+        .timeAgo {
+          margin: 3px 0;
+        }
+        .add_comment {
+          padding: 0.5rem 0;
+          border-top: 1px solid #00000018;
+          display: flex;
+          align-items: center;
+          margin-top: 0.3rem;
+          .add_icon {
+            margin: 0 4px;
+          }
+          form {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            input {
+              width: 100%;
+              height: 2rem;
+              border: none;
+              outline: none;
+              font-size: 1.05rem;
+            }
+            button {
+              cursor: pointer;
+              font-size: 1.1rem;
+              padding: 0 10px;
+              color: #0095f6;
+              background-color: transparent;
+              border: none;
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

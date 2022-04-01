@@ -16,6 +16,8 @@ import { useParams } from "react-router-dom";
 import FollowingList from "../../components/profile-component/followingList/FollowingList";
 import FollowersList from "../../components/profile-component/followingList copy/FollowersList";
 import LoginPopup from "../../components/FUC/LoginPopup";
+import POPUPPostsDetails from "../../components/postsPopupDetail/POPUPPostsDetails";
+import { getPostById } from "../../context/actions/postsAction";
 
 const Profile = () => {
   const { username } = useParams();
@@ -26,7 +28,9 @@ const Profile = () => {
   const [showsetting, setShowsetting] = useState(false);
   const [followingListModel, setFollowingListModel] = useState(false);
   const [followerListModel, setFollowerListModel] = useState(false);
+  const [follwerCount, setFollwerCount] = useState(0);
   const [loginpopup, setLoginpopup] = useState(false);
+  const [showPOPUPP, setShowPOPUPP] = useState(false);
   const dispatch = useDispatch();
 
   const followingListModelFunctionCall = () => {
@@ -85,7 +89,12 @@ const Profile = () => {
   const handleUnfollowing = (unfollowingId) => {
     dispatch(unfollowingUserCall(unfollowingId));
   };
+  console.log(profile);
 
+  const singlePostDetail = (postId) => {
+    setShowPOPUPP(true);
+    dispatch(getPostById(postId));
+  };
   return (
     <>
       <Navbar />
@@ -152,20 +161,23 @@ const Profile = () => {
                   <p>{profile.posts} posts</p>
                   {user ? (
                     <p onClick={followerListModelFunctionCall}>
-                      {profile.follower.length} follower
+                      {/* {profile.follower.length} follower */}
+                      {profile.follower ? profile.follower.length : 0} follower
                     </p>
                   ) : (
                     <p onClick={loginPopupCall}>
-                      {profile.follower.length} follower
+                      {profile.follower ? profile.follower.length : 0} follower
                     </p>
                   )}
                   {user ? (
                     <p onClick={followingListModelFunctionCall}>
-                      {profile.following.length} following
+                      {profile.following ? profile.following.length : 0}{" "}
+                      following
                     </p>
                   ) : (
                     <p onClick={loginPopupCall}>
-                      {profile.following.length} following
+                      {profile.following ? profile.following.length : 0}{" "}
+                      following
                     </p>
                   )}
                 </div>
@@ -187,7 +199,11 @@ const Profile = () => {
           <div className="profile_media_container">
             {posts &&
               posts.map((post, i) => (
-                <div className="profile_media" key={i}>
+                <div
+                  className="profile_media"
+                  key={i}
+                  onClick={() => singlePostDetail(post._id)}
+                >
                   <img src={post.media} alt="" />
                 </div>
               ))}
@@ -202,6 +218,7 @@ const Profile = () => {
         <FollowersList setFollowerListModel={setFollowerListModel} />
       )}
       {loginpopup && !user && <LoginPopup setLoginpopup={setLoginpopup} />}
+      {showPOPUPP && <POPUPPostsDetails setShowPOPUPP={setShowPOPUPP} />}
     </>
   );
 };

@@ -1,0 +1,23 @@
+.CommentUser {
+  margin: 0.5rem 0;
+  .CU_contaienr {
+    display: flex;
+    img {
+      height: 3rem;
+      width: 3rem;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .commetterName {
+      padding-top: 4px;
+      font-size: 1.2rem;
+    }
+    .comment_content {
+      padding-top: 4px;
+      font-weight: 300;
+      font-size: 1.1rem;
+      padding-left: 0.5rem;
+    }
+  }
+}
