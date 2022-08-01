@@ -24,6 +24,9 @@ mongoose
     console.log(error);
   });
 
+app.get("/", (req, res) => {
+  res.json("Server is running");
+});
 app.use("/api", userRoutes);
 app.use("/api", postsRoutes);
 

@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyARS9CxHRllYXDCkktrQKx1nN3CzSixm7c",
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "instagram-clone-f85d1.firebaseapp.com",
   projectId: "instagram-clone-f85d1",
   storageBucket: "instagram-clone-f85d1.appspot.com",

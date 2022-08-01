@@ -138,7 +138,6 @@ exports.createComment = async (req, res) => {
       comment: comment.comments[comment.comments.length - 1],
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       error: error.message,
     });

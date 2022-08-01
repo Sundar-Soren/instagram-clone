@@ -24,17 +24,17 @@ const SingleMainComp = ({ feedPost }) => {
 
   const dispatch = useDispatch();
 
-  const postComment = (e) => {
-    e.preventDefault();
-    dispatch(
-      postCommentCall({
-        postId: feedPost._id,
-        comment,
-        user: user._id,
-        userName: user.username,
-      })
-    );
-  };
+  // const postComment = (e) => {
+  //   e.preventDefault();
+  //   dispatch(
+  //     postCommentCall({
+  //       postId: feedPost._id,
+  //       comment,
+  //       user: user._id,
+  //       userName: user.username,
+  //     })
+  //   );
+  // };
   const singlePostDetail = (postId) => {
     setShowPOPUPP(true);
     dispatch(getPostById(postId));
@@ -54,7 +54,10 @@ const SingleMainComp = ({ feedPost }) => {
             <MoreHoriz />
           </div>
         </div>
-        <div className="singleMainComp_media_file">
+        <div
+          className="singleMainComp_media_file"
+          onClick={() => singlePostDetail(feedPost._id)}
+        >
           <img src={feedPost.media} alt="" />
         </div>
         <div className="singleMainComp_activity">
@@ -86,9 +89,9 @@ const SingleMainComp = ({ feedPost }) => {
             {format(feedPost.createdAt)}
           </div>
 
-          <SingleMainComment postId={feedPost._id} />
+          {/* <SingleMainComment postId={feedPost._id} /> */}
 
-          <div className="add_comment">
+          {/* <div className="add_comment">
             <div className="add_icon">
               <EmojiEmotions />
             </div>
@@ -102,7 +105,7 @@ const SingleMainComp = ({ feedPost }) => {
                 Post
               </button>
             </form>
-          </div>
+          </div> */}
         </div>
       </div>
       {showPOPUPP && <POPUPPostsDetails setShowPOPUPP={setShowPOPUPP} />}

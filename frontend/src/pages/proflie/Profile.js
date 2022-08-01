@@ -62,7 +62,6 @@ const Profile = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -89,7 +88,6 @@ const Profile = () => {
   const handleUnfollowing = (unfollowingId) => {
     dispatch(unfollowingUserCall(unfollowingId));
   };
-  console.log(profile);
 
   const singlePostDetail = (postId) => {
     setShowPOPUPP(true);

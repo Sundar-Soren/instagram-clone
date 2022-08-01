@@ -4,7 +4,6 @@ const SetUserInfo = () => {
   const [profileImg, setProfileImg] = useState(
     "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
   );
-  console.log(profileImg);
   return (
     <div className="setUserInfo">
       <div className="setUserInfo_container">

@@ -22,7 +22,6 @@ const AddPosts = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -50,7 +49,6 @@ const AddPosts = () => {
   const handleCreatePost = () => {
     dispatch(createPosts({ media, caption }));
   };
-  // console.log(loading);
   return (
     <div className="add_posts">
       {loading ? (
